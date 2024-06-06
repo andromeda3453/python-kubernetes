@@ -66,16 +66,17 @@ def createJWT(username, secret, role):
     return jwt.encode(
         {
             "username": username,
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1),
-            "iat": datetime.datetime.utcnow(),
+            "exp": datetime.datetime.now(datetime.UTC) + datetime.timedelta(days=1),
+            "iat": datetime.datetime.now(datetime.UTC),
             "admin": role
             
         },
         secret,
-        algorithms = ["HS256"]
+        algorithm = "HS256"
     )
     
 if __name__ == "__main__":
+    #need to set host to 0.0.0.0 to make the server accessible from all public IPs. omitting this would make it run on localhost and only be accessible on the local machine
     server.run(host='0.0.0.0', port=5000)
         
 
