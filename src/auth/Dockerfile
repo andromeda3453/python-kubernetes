@@ -23,4 +23,4 @@ COPY . /app
 EXPOSE 5000
 
 #this is the default state/cmd run when the container is launched
-CMD ["python3", "server.py"]
+CMD ["python", "app.py"]
