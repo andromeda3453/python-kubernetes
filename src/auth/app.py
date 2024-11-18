@@ -3,9 +3,6 @@ import datetime
 import os
 from flask import Flask, request
 from flask_mysqldb import MySQL
-from dotenv import load_dotenv
-
-load_dotenv()
 
 app = Flask(__name__)
 mysql = MySQL(app)
