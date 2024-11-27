@@ -1,6 +1,6 @@
 #Use linux based python image which includes python 
-# FROM python:3.10-slim-bullseye
-FROM python:3.12-bullseye
+FROM python:3.10-slim-bullseye
+# FROM python:3.12-bullseye
 
 #update package index
 RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests build-essential default-libmysqlclient-dev pkg-config && pip install --no-cache-dir --upgrade pip
