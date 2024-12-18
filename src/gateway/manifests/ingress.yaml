@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gateway-ingress # the ingress consists of a load balance that distributes traffic to a service based on some rules. The default loadbalancer used is nginix
+  annotations:
+    nginix.ingress.kubernetes.io/proxy-body-size: "0" # we can use annotations to change settings for the nginix load balancer being used. this setting makes it so that we can upload files with a larger size. 0 means there's no limit to the size of the file
+    nginix.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginix.ingress.kubernetes.io/proxy-send-timeout: "600"
+
+spec:
+  rules:
+    - host: mp3converter.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gateway
+                port:
+                  number: 8080

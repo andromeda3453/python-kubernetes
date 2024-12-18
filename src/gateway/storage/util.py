@@ -15,13 +15,17 @@ def upload(f, fs, channel, access):
         ],  # username is the users email which is unique for each user
     }
 
-    # try:
-    #     channel.basic_publish(
-    #         exchange = "",
-    #         routing_key = "video",
-    #         body=json.dumps(message),
-    #         properties= pika.BasicProperties(
-    #             delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE #This makes sure the messages persist in the queue in the event of a pod crash
-    #         )
-    #     )
-    # except Exception as e:
+    try:
+        channel.basic_publish(
+            exchange = "",
+            routing_key = "video",
+            body=json.dumps(message),
+            properties= pika.BasicProperties(
+                delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE #This makes sure the messages persist in the queue in the event of a pod crash
+            )
+        )
+    except Exception:
+        
+        # if message publishing fails, delete video from database to prevent stale data 
+        fs.delete(fid)
+        return "internal server error. Please try uploading file again", 500
